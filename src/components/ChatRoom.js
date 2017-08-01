@@ -12,6 +12,17 @@ class ChatRoom extends Component {
     }
   }
 
+  componentDidMount(event){
+    firebase.database().ref('messages/').on('value', (snapshot)=>{
+      const currentMessages = snapshot.val();
+      if(currentMessages != null){
+        this.setState({
+          messages: currentMessages
+        })
+      }
+    })
+  }
+
   updateMessage(event){
     console.log('updateMessage:'+ event.target.value)
     this.setState({
@@ -25,12 +36,8 @@ class ChatRoom extends Component {
       id: this.state.messages.length,
       text: this.state.message
     }
-    var list = Object.assign([], this.state.messages)
-    list.push(nextMessage);
-    this.setState({
-      messages: list
-    })
-
+    firebase.database().ref('messages/'+nextMessage.id).set(nextMessage)
+    this.refs.inputfield.value = '';
   }
 
   render(){
@@ -45,7 +52,7 @@ class ChatRoom extends Component {
           <ol>
             {currentMessage}
           </ol>
-          <input onChange={this.updateMessage} type='text' placeholder='Messages'/>
+          <input onChange={this.updateMessage} ref="inputfield" type='text' placeholder='Messages'/>
           <br/>
           <button onClick={this.submitMessage}>Submit Message</button>
       </div>

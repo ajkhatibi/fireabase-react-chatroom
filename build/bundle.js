@@ -22467,6 +22467,20 @@ var ChatRoom = function (_Component) {
   }
 
   _createClass(ChatRoom, [{
+    key: 'componentDidMount',
+    value: function componentDidMount(event) {
+      var _this2 = this;
+
+      firebase.database().ref('messages/').on('value', function (snapshot) {
+        var currentMessages = snapshot.val();
+        if (currentMessages != null) {
+          _this2.setState({
+            messages: currentMessages
+          });
+        }
+      });
+    }
+  }, {
     key: 'updateMessage',
     value: function updateMessage(event) {
       console.log('updateMessage:' + event.target.value);
@@ -22482,11 +22496,8 @@ var ChatRoom = function (_Component) {
         id: this.state.messages.length,
         text: this.state.message
       };
-      var list = Object.assign([], this.state.messages);
-      list.push(nextMessage);
-      this.setState({
-        messages: list
-      });
+      firebase.database().ref('messages/' + nextMessage.id).set(nextMessage);
+      this.refs.inputfield.value = '';
     }
   }, {
     key: 'render',
@@ -22507,7 +22518,7 @@ var ChatRoom = function (_Component) {
           null,
           currentMessage
         ),
-        _react2.default.createElement('input', { onChange: this.updateMessage, type: 'text', placeholder: 'Messages' }),
+        _react2.default.createElement('input', { onChange: this.updateMessage, ref: 'inputfield', type: 'text', placeholder: 'Messages' }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',
