@@ -22458,7 +22458,9 @@ var ChatRoom = function (_Component) {
     var _this = _possibleConstructorReturn(this, (ChatRoom.__proto__ || Object.getPrototypeOf(ChatRoom)).call(this, props, context));
 
     _this.updateMessage = _this.updateMessage.bind(_this);
+    _this.submitMessage = _this.submitMessage.bind(_this);
     _this.state = {
+      message: '',
       messages: []
     };
     return _this;
@@ -22467,7 +22469,24 @@ var ChatRoom = function (_Component) {
   _createClass(ChatRoom, [{
     key: 'updateMessage',
     value: function updateMessage(event) {
-      console.log('updateMessage');
+      console.log('updateMessage:' + event.target.value);
+      this.setState({
+        message: event.target.value
+      });
+    }
+  }, {
+    key: 'submitMessage',
+    value: function submitMessage(event) {
+      console.log("submitMessage:" + this.state.message, 'also passing event:' + event);
+      var nextMessage = {
+        id: this.state.messages.length,
+        text: this.state.message
+      };
+      var list = Object.assign([], this.state.messages);
+      list.push(nextMessage);
+      this.setState({
+        messages: list
+      });
     }
   }, {
     key: 'render',
@@ -22479,23 +22498,20 @@ var ChatRoom = function (_Component) {
           message.text
         );
       });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
+
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
           'ol',
           null,
-          this.currentMessage
+          currentMessage
         ),
         _react2.default.createElement('input', { onChange: this.updateMessage, type: 'text', placeholder: 'Messages' }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',
-          null,
+          { onClick: this.submitMessage },
           'Submit Message'
         )
       );
