@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Button, FormControl, Grid, Row, Col } from 'react-bootstrap';
+
 
 class ChatRoom extends Component {
 
@@ -48,14 +50,15 @@ class ChatRoom extends Component {
     })
 
     return(
-      <div>
-          <ol>
-            {currentMessage}
-          </ol>
-          <input onChange={this.updateMessage} ref="inputfield" type='text' placeholder='Messages'/>
-          <br/>
-          <button onClick={this.submitMessage}>Submit Message</button>
-      </div>
+      <Grid>
+                <ol>
+                  {currentMessage}
+                </ol>
+         <Row className="show-grid">
+           <Col xs={12} md={8}><FormControl onChange={this.updateMessage} ref="inputfield"  type="text" placeholder="Type Message" /></Col>
+           <Col xs={6} md={4}><Button bsStyle="primary" bsSize="small" onClick={this.submitMessage}>Submit Message</Button></Col>
+         </Row>
+      </Grid>
     )
   }
 }
