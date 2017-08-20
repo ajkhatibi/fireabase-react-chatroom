@@ -9,13 +9,13 @@ if(!process.env.PRODUCTION){
   new webpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
     hot: true,
-    noInfo: true,
+    noInfo: false,
     historyApiFallback: true
-  }).listen(8080, (error, result) => {
-    if(error){
-      console.log('This was an error' + error)
-    } else {
-      console.log('This server is working properly.');
-    }
+  }).listen(8080, 'localhost', (error, result) => {
+      if(error){
+        console.log('An error has occured: '+error);
+      } else {
+        console.log('This server is working properly.');
+      }
   });
 }

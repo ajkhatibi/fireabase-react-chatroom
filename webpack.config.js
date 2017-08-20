@@ -9,6 +9,12 @@ module.exports = {
 		filename:"build/bundle.js",
         sourceMapFilename: "build/bundle.map"
 	},
+	devServer: {
+  contentBase: path.join(__dirname, "/"),
+  compress: true,
+	open: true,
+	stats: 'errors-only'
+},
     devtool: '#source-map',
 	// plugins: [
   //   	new webpack.optimize.UglifyJsPlugin({minimize: true}),

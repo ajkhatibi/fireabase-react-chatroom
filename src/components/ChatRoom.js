@@ -56,7 +56,7 @@ class ChatRoom extends Component {
                 </ol>
          <Row className="show-grid">
            <Col xs={12} md={8}><FormControl onChange={this.updateMessage} ref="inputfield"  type="text" placeholder="Type Message" /></Col>
-           <Col xs={6} md={4}><Button bsStyle="primary" bsSize="small" onClick={this.submitMessage}>Submit Message</Button></Col>
+           <Col xs={6} md={4}><Button bsStyle="primary" bsSize="small" refs="inputfield" onClick={this.submitMessage}>Submit Message</Button></Col>
          </Row>
       </Grid>
     )
