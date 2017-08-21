@@ -10,14 +10,14 @@ module.exports = {
         sourceMapFilename: "build/bundle.map"
 	},
 	devServer: {
-  contentBase: path.join(__dirname, "/"),
+  contentBase: path.join(__dirname, "build"),
   compress: true,
 	stats: 'errors-only'
 },
     devtool: '#source-map',
-	// plugins: [
-  //   	new webpack.optimize.UglifyJsPlugin({minimize: true}),
-	// ],
+	plugins: [
+    	new webpack.optimize.UglifyJsPlugin({minimize: true}),
+	],
 	module: {
 		loaders: [
 			{
