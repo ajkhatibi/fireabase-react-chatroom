@@ -12,7 +12,6 @@ module.exports = {
 	devServer: {
   contentBase: path.join(__dirname, "/"),
   compress: true,
-	open: true,
 	stats: 'errors-only'
 },
     devtool: '#source-map',
