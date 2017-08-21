@@ -11,7 +11,7 @@ if(!process.env.PRODUCTION){
     hot: true,
     noInfo: false,
     historyApiFallback: true
-  }).listen(8080, 'localhost', (error, result) => {
+  }).listen(process.env.PORT || 8080, 'localhost', (error, result) => {
       if(error){
         console.log('An error has occured: '+error);
       } else {
