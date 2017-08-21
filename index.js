@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const port = process.env.PORT || 8080;
 if(!process.env.PRODUCTION){
   const webpack = require('webpack');
   const webpackDevServer = require('webpack-dev-server');
@@ -11,11 +11,13 @@ if(!process.env.PRODUCTION){
     hot: true,
     noInfo: false,
     historyApiFallback: true
-  }).listen(process.env.PORT || 8080, 'localhost', (error, result) => {
+  }).listen(9090, 'localhost', (error, result) => {
       if(error){
         console.log('An error has occured: '+error);
-      } else {
-        console.log('This server is working properly.');
       }
   });
 }
+
+const server = app.listen(port, () => {
+  console.log('This server is working properly with: '+ port);
+})
